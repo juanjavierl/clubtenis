@@ -22,4 +22,5 @@ urlpatterns = [
 
     path('portada/', include('app.portada.urls')),
     path('', include('app.administrador.urls')),
+    path('', include('app.inicio.urls')),
 ]

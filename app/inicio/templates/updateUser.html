@@ -1,0 +1,30 @@
+{% load crispy_forms_tags %}
+ <script type="text/javascript">
+   $('#demo-form2').submit(function(e){
+        e.preventDefault();
+        $.ajax({
+            type:'POST',
+            url:$(this).attr("action"),
+            data: $(this).serialize(),
+            success: function(resp){
+                $(".toast .alert-success").html(resp);
+                $('.toast').toast({delay: 3000});
+                $('.toast').toast('show');
+                callData('/getUsers');
+                $(".btn-close").click(); 
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+              alert("Error al enviar intente nuevamente gracias");
+            }
+        });
+    });
+ </script>   
+ <form method="POST" action="{% url 'myperfil' %}" role="form" class="form-horizontal" id="demo-form2" data-parsley-validate >
+     {% csrf_token %}
+     {{ user_form|crispy }}
+        <div class="modal-footer">
+            <button type="submit" class="btn btn-primary">Editar</button>
+            <a type="button" class="btn btn-secondary btn-ms" href='{{request.META.HTTP_REFERER}}' data-bs-dismiss="modal">Cancelar</a>
+        </div>
+  </form>
+  
